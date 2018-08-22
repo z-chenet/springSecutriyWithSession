@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.security.Principal;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -14,7 +15,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpSession;
 
 @SpringBootApplication
 @Controller
@@ -35,13 +39,18 @@ public class UiApplication {
         return model;
     }
 
-  @GetMapping(value = "/{path:[^\\.]*}")
-  public String redirect() {
-    return "forward:/";
+    @GetMapping(value = "/{path:[^\\.]*}")
+    public String redirect() {
+      return "forward:/";
   }
 
     public static void main(String[] args) {
         SpringApplication.run(UiApplication.class, args);
+    }
+
+    @RequestMapping("/token")
+    public Map<String, String> token(HttpSession session){
+      return Collections.singletonMap("token", session.getId());
     }
 
     @Configuration
