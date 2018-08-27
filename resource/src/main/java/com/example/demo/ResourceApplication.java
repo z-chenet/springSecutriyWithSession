@@ -16,6 +16,10 @@ import java.util.UUID;
 @RestController
 public class ResourceApplication extends WebSecurityConfigurerAdapter {
 
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.cors().and().authorizeRequests().anyRequest().authenticated();
+	}
     @RequestMapping("/")
     @CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders = { "x-auth-token", "x-requested-with", "x-xsrf-token" })
     public Message home() {
@@ -29,12 +33,6 @@ public class ResourceApplication extends WebSecurityConfigurerAdapter {
     @Bean
     HeaderHttpSessionStrategy sessionStrategy(){
         return new HeaderHttpSessionStrategy();
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().authorizeRequests()
-            .anyRequest().authenticated();
     }
 }
 

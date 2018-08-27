@@ -26,15 +26,6 @@ export class CustomInterceptor implements HttpInterceptor {
   }
 }
 
-@Injectable()
-export class c2 implements HttpInterceptor {
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const xhr = req.clone({
-      setHeaders:{'Custom-Header-1' : '1'}});
-    return next.handle(xhr);
-  }
-}
-
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home'},
   { path: 'home', component: HomeComponent},

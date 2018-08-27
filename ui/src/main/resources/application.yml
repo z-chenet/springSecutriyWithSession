@@ -9,6 +9,8 @@ spring:
       password: password
 logging:
   level:
-    org.springframework.security: info
+    org.springframework:
+      security: info
+      session: info
 
 

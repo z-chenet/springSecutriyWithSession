@@ -23,43 +23,29 @@ import javax.servlet.http.HttpSession;
 @SpringBootApplication
 @Controller
 public class UiApplication {
+//    @GetMapping("/resource")
+//    @ResponseBody
+//    public Map<String, Object> home() {
+//        Map<String, Object> model = new HashMap<String, Object>();
+//        model.put("id", UUID.randomUUID().toString());
+//        model.put("content", "Hello World");
+//        return model;
+//    }
 
-    @GetMapping("/user")
-    @ResponseBody
-    public Principal user(Principal user) {
-        return user;
-    }
 
-    @GetMapping("/resource")
-    @ResponseBody
-    public Map<String, Object> home() {
-        Map<String, Object> model = new HashMap<String, Object>();
-        model.put("id", UUID.randomUUID().toString());
-        model.put("content", "Hello World");
-        return model;
-    }
-
-    @GetMapping(value = "/{path:[^\\.]*}")
-    public String redirect() {
-      return "forward:/";
-  }
 
     public static void main(String[] args) {
         SpringApplication.run(UiApplication.class, args);
     }
 
-    @RequestMapping("/token")
-    @ResponseBody
-    public Map<String, String> token(HttpSession session){
-      return Collections.singletonMap("token", session.getId());
-    }
+
 
     @Configuration
     protected static class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         @Override
         public void configure(WebSecurity web) throws Exception {
-            web.ignoring().antMatchers("/*.js", "/*.bundle.*", "/favicon.ico");
+            web.ignoring().antMatchers("/*.js", "/*.bundle.*");
         }
 
         @Override
@@ -77,4 +63,20 @@ public class UiApplication {
         }
     }
 
+    @GetMapping(value = "/{path:[^\\.]*}")
+    public String redirect() {
+        return "forward:/";
+    }
+
+    @GetMapping("/user")
+    @ResponseBody
+    public Principal user(Principal user) {
+        return user;
+    }
+
+    @GetMapping("/token")
+    @ResponseBody
+    public Map<String, String> token(HttpSession session){
+      return Collections.singletonMap("token", session.getId());
+    }
 }

@@ -11,11 +11,9 @@ export class HomeComponent {
   greeting = {};
 
   constructor(private app: AppService, private http: HttpClient) {
-    // http.get('http://localhost:9000').subscribe(data => this.greeting = data);
     http.get('token').subscribe(data => {
-      const token = data ['token'];
-      http.get('http://localhost:9000', {headers : new HttpHeaders()
-            .set('X-Auth-Token', token)})
+      const token = data['token'];
+      http.get('http://localhost:9000', {headers : new HttpHeaders().set('X-Auth-Token', token)})
         .subscribe(response => this.greeting = response);
     }, () => {});
   }
