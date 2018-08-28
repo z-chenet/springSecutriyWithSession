@@ -4,8 +4,10 @@ spring:
   security:
     user:
       password: password
-  session:
-    store-type: redis
+zuul:
+  routes:
+    path: /resource/**
+    url: http://localhost:9000
 logging:
   level:
     org.springframework.security: DEBUG
