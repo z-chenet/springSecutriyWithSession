@@ -28,14 +28,6 @@ public class UiApplication {
         return user;
     }
 
-    @GetMapping("/resource")
-    @ResponseBody
-    public Map<String, Object> home() {
-        Map<String, Object> model = new HashMap<String, Object>();
-        model.put("id", UUID.randomUUID().toString());
-        model.put("content", "Hello World");
-        return model;
-    }
 
   @GetMapping(value = "/{path:[^\\.]*}")
   public String redirect() {
@@ -59,8 +51,9 @@ public class UiApplication {
             // @formatter:off
             http
                 .httpBasic().and()
+                .logout().and()
                 .authorizeRequests()
-                    .antMatchers("/index.html", "/", "/home", "/login").permitAll()
+                    .antMatchers("/index.html", "/", "/home").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .csrf()

@@ -1,15 +1,10 @@
-server:
-  port: 8080
 spring:
   security:
     user:
       password: password
 zuul:
   routes:
-    path: /resource/**
-    url: http://localhost:9000
-logging:
-  level:
-    org.springframework.security: DEBUG
-
-
+    resource:
+      path: /resource/**
+      url: http://localhost:9000
+      sensitive-headers:
